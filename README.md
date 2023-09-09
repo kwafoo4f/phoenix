@@ -11,9 +11,12 @@
 1. 服务注册： 
     - 1.x版本：Nacos Client会通过发送REST请求的方式向Nacos Server注册自己的服务，提供自身的元数据，比如ip地址、端口等信
    息。Nacos Server接收到注册请求后，就会把这些元数据信息存储在一个双层的内存Map中。
-   ![img.png](a_doc/img.png) </br>
-    - 2.x版本：
-    - 
+    - ![img.png](img.png)
+    - ![img.png](a_doc/img.png)
+    - 注册表中Server的关系
+    - ![img_3.png](img_3.png)
+    - 2.x版本： 
+   
 2. 服务发现：
    - 1.x版本:服务消费者（Nacos Client）在调用服务提供者的服务时，会发送一个REST请求给Nacos Server，获取上面注册的服务清
         单，并且缓存在Nacos Client本地，同时会在Nacos Client本地开启一个定时任务定时拉取服务端最新的注册表信息更新到本地缓存
