@@ -1,8 +1,11 @@
 # phoenix
 ## 中国古代神话故事神兽-凤凰
+  项目目的：参考nacos1.x与2.x源码,手写服务注册中心的核心逻辑.
+  - 1.nacos1.x源码分析:
+  - 2.phoenix-server端设计
+  - 3.phoenix-client端设计
+   
 ###  一、Nacos架构图：
-
-
 
 ###  二、Nacos核心功能点
 1. 服务注册： 
