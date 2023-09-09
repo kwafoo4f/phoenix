@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="SERVICE-NAME" value="phoenix-server"/>
+    
+    <property name="PATTERN" value="phoenix-server %d{HH:mm:ss} [%thread] %-5level %logger{18} - %msg%n"/>
+
+    <property name="FILE-PATH" value="/data/server/"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="APPLICATION-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE-PATH}/${SERVICE-NAME}/application/application.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${FILE-PATH}/${SERVICE-NAME}/application/application.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <MaxHistory>100</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="${SERVICE-NAME}" level="DEBUG" additivity="false">
+        <appender-ref ref="APPLICATION-FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <root level="INFO">
+        <appender-ref ref="APPLICATION-FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
