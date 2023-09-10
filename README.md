@@ -6,16 +6,16 @@
   - 3.phoenix-client端设计
    
 ###  一、Nacos架构图：
-![img_4.png](img_4.png)
+![img_4.png](a_doc/img_4.png)
 
 ###  二、Nacos核心功能点
 1. 服务注册： 
     - 1.x版本：Nacos Client会通过发送REST请求的方式向Nacos Server注册自己的服务，提供自身的元数据，比如ip地址、端口等信
    息。Nacos Server接收到注册请求后，就会把这些元数据信息存储在一个双层的内存Map中。
-    - ![img.png](img.png)
+    - ![img.png](a_doc/img6.png)
     - ![img.png](a_doc/img.png)
     - 注册表中Server的关系
-    - ![img_3.png](img_3.png)
+    - ![img_3.png](a_doc/img_3.png)
     - 2.x版本： 
    
 2. 服务发现：
