@@ -6,6 +6,7 @@
   - 3.phoenix-client端设计
    
 ###  一、Nacos架构图：
+![img_4.png](img_4.png)
 
 ###  二、Nacos核心功能点
 1. 服务注册： 
@@ -27,3 +28,5 @@
    的healthy属性置为false(客户端服务发现时不会发现)，如果某个实例超过30秒没有收到心跳，直接剔除该实例(被剔除的实例如果恢复
    发送心跳则会重新注册)
 
+### 核心流程:
+- ![image.nacos](a_doc/nacos.png)
