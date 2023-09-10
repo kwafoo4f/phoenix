@@ -2,6 +2,8 @@ package com.kuafoo4j.phoenix.commom.core.pojo;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,4 +30,12 @@ public class Service {
      */
     private Map<String,Cluster> clusterMap;
 
+    public List<Instance> getAllInstances(String clusterName) {
+        Cluster cluster = clusterMap.get(clusterName);
+        if (cluster == null) {
+            return new ArrayList<>();
+        }
+
+        return new ArrayList<>(cluster.getEphemeralInstances());
+    }
 }
