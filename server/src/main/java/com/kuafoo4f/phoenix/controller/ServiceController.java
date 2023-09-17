@@ -1,12 +1,10 @@
 package com.kuafoo4f.phoenix.controller;
 
 import com.kuafoo4f.phoenix.service.ServiceManager;
-import com.kuafoo4j.phoenix.commom.core.api.PhoenixServiceApi;
-import com.kuafoo4j.phoenix.commom.core.api.RegisterReq;
-import com.kuafoo4j.phoenix.commom.core.api.ReturnResp;
-import com.kuafoo4j.phoenix.commom.core.api.ServiceBaseReq;
+import com.kuafoo4j.phoenix.commom.core.api.*;
 import com.kuafoo4j.phoenix.commom.core.pojo.Instance;
 import com.kuafoo4j.phoenix.commom.core.pojo.ServiceInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +15,7 @@ import java.util.List;
  * @author: zk
  * @date: 2023-09-10 19:54
  */
+@Slf4j
 @RestController
 @RequestMapping("/service/v1/")
 public class ServiceController implements PhoenixServiceApi {
@@ -27,6 +26,7 @@ public class ServiceController implements PhoenixServiceApi {
     @Override
     @PostMapping
     public ReturnResp registerService(@RequestBody RegisterReq registerReq) {
+        log.info("registerService registerReq {}",registerReq);
         serviceManager.registerInstance(registerReq);
         return ReturnResp.ok();
     }
@@ -39,15 +39,17 @@ public class ServiceController implements PhoenixServiceApi {
 
     @Override
     @PostMapping("/beat")
-    public ReturnResp beat() {
-        return null;
+    public ReturnResp beat(@RequestBody BeatReq beatReq) {
+        log.info("beat beatReq {}",beatReq);
+        serviceManager.beat(beatReq);
+        return ReturnResp.ok();
     }
 
     @Override
     @GetMapping
     public ReturnResp<ServiceInfo> getAllInstances(ServiceBaseReq req) {
         ServiceInfo serviceInfo = serviceManager.getInstances(req.getNamespaceId(), req.getGroupName(),
-                req.getClusterName(), req.getServiceName());
+                req.getServiceName(), req.getClusterName());
         return ReturnResp.ok(serviceInfo);
     }
 }

@@ -24,7 +24,7 @@ public interface PhoenixServiceApi {
      * 服务心跳
      * @return
      */
-    ReturnResp beat();
+    ReturnResp beat(BeatReq beatReq);
 
     /**
      * 获取所有实例

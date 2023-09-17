@@ -24,9 +24,5 @@ public class Cluster {
      * 服务
      */
     private Service service;
-    /**
-     * 集群下的实例
-     */
-    private Set<Instance> ephemeralInstances = new HashSet<Instance>();
 
 }

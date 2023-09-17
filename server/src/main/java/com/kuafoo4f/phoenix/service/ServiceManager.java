@@ -1,13 +1,15 @@
 package com.kuafoo4f.phoenix.service;
 
 import com.kuafoo4f.phoenix.pojo.InstanceModify;
+import com.kuafoo4j.phoenix.commom.core.api.BeatReq;
 import com.kuafoo4j.phoenix.commom.core.api.RegisterReq;
+import com.kuafoo4j.phoenix.commom.core.api.ReturnResp;
 import com.kuafoo4j.phoenix.commom.core.constants.Constant;
 import com.kuafoo4j.phoenix.commom.core.exception.ExceptionBiz;
 import com.kuafoo4j.phoenix.commom.core.exception.PhoenixException;
 import com.kuafoo4j.phoenix.commom.core.pojo.Instance;
-import com.kuafoo4j.phoenix.commom.core.pojo.Service;
 import com.kuafoo4j.phoenix.commom.core.pojo.ServiceInfo;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author: zk
  * @date: 2023-09-10 19:58
  */
+@Slf4j
 @Component
 public class ServiceManager {
     /**
@@ -38,9 +41,16 @@ public class ServiceManager {
     }
 
     public void addInstance(Instance instance) {
-        // 向队列中加入添加实例的任务
-        InstanceModify modify = new InstanceModify(InstanceModify.MODIFY_CHANGE, instance);
-        InstanceModifyService.addTask(modify);
+//        // 向队列中加入添加实例的任务，TODO 异步处理，写时复制
+//        InstanceModify modify = new InstanceModify(InstanceModify.MODIFY_CHANGE, instance);
+//        InstanceModifyService.addTask(modify);
+
+
+        // 直接加入到service中
+        Service service = getService(instance.getNamespaceId(), instance.getServiceName());
+        log.debug("add instance to {}",service.getName());
+        service.addInstance(instance);
+
     }
 
     /**
@@ -74,7 +84,12 @@ public class ServiceManager {
     }
 
     private Service getService(String namespaceId,String serviceName) {
-        return chooseMap(namespaceId).get(serviceName);
+        Map<String, Service> serviceMap = chooseMap(namespaceId);
+        if (serviceMap == null) {
+            return null;
+        }
+
+        return serviceMap.get(serviceName);
     }
 
     private Map<String, Service> chooseMap(String namespaceId) {
@@ -94,5 +109,19 @@ public class ServiceManager {
         serviceInfo.setClusters(clusterName);
         serviceInfo.setHosts(allInstances);
         return serviceInfo;
+    }
+
+    /**
+     * 心跳处理
+     *
+     * @param beatReq
+     */
+    public void beat(BeatReq beatReq) {
+        Service service = getService(beatReq.getNamespaceId(), beatReq.getServiceName());
+        if (service == null) {
+            throw new PhoenixException(ExceptionBiz.NO_SUCH_SERVICE);
+        }
+        service.beat(beatReq.getInstance());
+
     }
 }

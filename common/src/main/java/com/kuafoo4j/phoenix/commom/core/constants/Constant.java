@@ -1,5 +1,7 @@
 package com.kuafoo4j.phoenix.commom.core.constants;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @description: 常量
  * @author: zk
@@ -16,4 +18,13 @@ public interface Constant {
     String SEPARATOR = "@@";
 
     String SEPARATOR_REGISTER = "::";
+    /**
+     * 服务健康时间15s
+     */
+    Long INSTANCE_UN_HEALTH_TIME = TimeUnit.SECONDS.toMillis(15);
+    /**
+     * 服务移除时间30s
+     */
+    Long INSTANCE_REMOVE_TIME = TimeUnit.SECONDS.toMillis(30);
+
 }

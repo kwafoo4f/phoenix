@@ -25,17 +25,5 @@ public class Service {
      * 服务名称
      */
     private String name;
-    /**
-     * 集群， Map<Cluster::getName,Cluster>
-     */
-    private Map<String,Cluster> clusterMap;
 
-    public List<Instance> getAllInstances(String clusterName) {
-        Cluster cluster = clusterMap.get(clusterName);
-        if (cluster == null) {
-            return new ArrayList<>();
-        }
-
-        return new ArrayList<>(cluster.getEphemeralInstances());
-    }
 }

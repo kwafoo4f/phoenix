@@ -4,7 +4,8 @@
     
     <property name="PATTERN" value="phoenix-server %d{HH:mm:ss} [%thread] %-5level %logger{18} - %msg%n"/>
 
-    <property name="FILE-PATH" value="/data/server/"/>
+<!--    <property name="FILE-PATH" value="/data/server/"/>-->
+    <property name="FILE-PATH" value="/Users/cxz/IdeaProjects/phoenix/logs"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
