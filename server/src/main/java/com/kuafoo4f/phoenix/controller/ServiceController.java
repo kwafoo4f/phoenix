@@ -26,7 +26,8 @@ public class ServiceController implements PhoenixServiceApi {
     @Override
     @PostMapping
     public ReturnResp registerService(@RequestBody RegisterReq registerReq) {
-        log.info("registerService registerReq {}",registerReq);
+        log.info("register serviceName {},{}:{}",registerReq.getServiceName(),
+                registerReq.getInstance().getIp(),registerReq.getInstance().getPort());
         serviceManager.registerInstance(registerReq);
         return ReturnResp.ok();
     }
@@ -40,7 +41,8 @@ public class ServiceController implements PhoenixServiceApi {
     @Override
     @PostMapping("/beat")
     public ReturnResp beat(@RequestBody BeatReq beatReq) {
-        log.info("beat beatReq {}",beatReq);
+        log.info("beat serviceName {},{}:{}",beatReq.getServiceName(),
+                beatReq.getInstance().getIp(),beatReq.getInstance().getPort());
         serviceManager.beat(beatReq);
         return ReturnResp.ok();
     }

@@ -1,16 +1,12 @@
 package com.kuafoo4f.phoenix.service;
 
-import com.kuafoo4f.phoenix.PoolManager;
 import com.kuafoo4j.phoenix.commom.core.constants.Constant;
 import com.kuafoo4j.phoenix.commom.core.pojo.Instance;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j

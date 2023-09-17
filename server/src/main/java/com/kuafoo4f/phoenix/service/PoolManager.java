@@ -1,4 +1,4 @@
-package com.kuafoo4f.phoenix;
+package com.kuafoo4f.phoenix.service;
 
 import java.util.concurrent.*;
 
@@ -10,6 +10,6 @@ public class PoolManager {
     /**
      * 服务健康检查和服务剔除
      */
-    public static final ScheduledThreadPoolExecutor INSTANCE_HEALTH_POOL =  new ScheduledThreadPoolExecutor(1);
+    public static final ScheduledExecutorService INSTANCE_HEALTH_POOL =  new ScheduledThreadPoolExecutor(1);
 
 }
