@@ -100,7 +100,7 @@ public class ServiceHolder {
      */
     private void addUpdateTaskIfAbsent(String serviceName) {
         synchronized (serviceUpdateTaskMap) {
-            if (serviceUpdateTaskMap.get(serviceName) == null) {
+            if (serviceUpdateTaskMap.get(serviceName) != null) {
                 return;
             }
             ClientPoolManager.SERVICE_UPDATE_POOL.schedule(new UpdateTask(serviceName), 5, TimeUnit.SECONDS);
