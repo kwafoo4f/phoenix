@@ -107,7 +107,7 @@ public class ServiceManager {
     public ServiceInfo getInstances(String namespaceId, String groupName, String serviceName, String clusterName) {
         Service service = getService(namespaceId, serviceName);
         if (service == null) {
-            throw new PhoenixException(ExceptionBiz.NO_SUCH_SERVICE);
+            throw new PhoenixException(ExceptionBiz.NO_SUCH_SERVICE + serviceName);
         }
         List<Instance> allInstances = service.getAllInstances(clusterName);
 

@@ -1,5 +1,7 @@
 package com.kuafoo4j.phoenix.commom.core.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kuafoo4j.phoenix.commom.core.constants.Constant;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -29,5 +31,14 @@ public class ServiceInfo {
      * 实例主机
      */
     private List<Instance> hosts = new ArrayList<>();
+
+    /**
+     * 获取客户端缓存的key
+     * @return
+     */
+    @JsonIgnore
+    public String getKey() {
+        return this.getGroupName() + Constant.SEPARATOR + this.getClusters() + Constant.SEPARATOR + this.getName();
+    }
 
 }

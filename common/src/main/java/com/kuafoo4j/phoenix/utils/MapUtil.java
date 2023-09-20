@@ -39,7 +39,15 @@ public class MapUtil {
             field.setAccessible(true);
             Object value = field.get(obj);
             if (Objects.nonNull(value)) {
-                map.put(field.getName(), JacksonUtils.objectToJson(value));
+                if (value instanceof Number) {
+                    map.put(field.getName(), String.valueOf(value));
+                } else if (value instanceof String) {
+                    map.put(field.getName(), (String) value);
+                } else if (value instanceof Boolean) {
+                    map.put(field.getName(), String.valueOf(value));
+                } else {
+                    map.put(field.getName(), JacksonUtils.objectToJson(value));
+                }
             }
         }
         return map;

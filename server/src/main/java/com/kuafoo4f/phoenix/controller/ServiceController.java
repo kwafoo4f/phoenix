@@ -61,13 +61,14 @@ public class ServiceController implements PhoenixServiceApi {
     @Override
     @GetMapping
     public ReturnResp<ServiceInfo> getAllInstances(ServiceBaseReq req) {
+        log.info("getAllInstances req {}",req);
         ServiceInfo serviceInfo = serviceManager.getInstances(req.getNamespaceId(), req.getGroupName(),
                 req.getServiceName(), req.getClusterName());
         return ReturnResp.ok(serviceInfo);
     }
 
     @GetMapping("all-service")
-    public ReturnResp<Map> getAllService(ServiceBaseReq req) {
+    public ReturnResp<Map> getAllService() {
         return ReturnResp.ok(serviceManager.getAllService());
     }
 }

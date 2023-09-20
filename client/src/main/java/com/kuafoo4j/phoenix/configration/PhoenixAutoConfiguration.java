@@ -1,6 +1,7 @@
 package com.kuafoo4j.phoenix.configration;
 
 import com.kuafoo4f.phoenix.rpc.PhoenixHttpClient;
+import com.kuafoo4j.phoenix.client.ServiceHolder;
 import com.kuafoo4j.phoenix.client.ServiceRegister;
 import com.kuafoo4j.phoenix.commom.core.api.PhoenixServiceApi;
 import com.kuafoo4j.phoenix.config.DiscoveryProperties;
@@ -22,8 +23,13 @@ public class PhoenixAutoConfiguration {
     }
 
     @Bean
-    public ServiceRegister serviceProperties(PhoenixServiceApi apiProxy, ServiceProperties serviceProperties) {
+    public ServiceRegister serviceRegister(PhoenixServiceApi apiProxy, ServiceProperties serviceProperties) {
         return new ServiceRegister(apiProxy,serviceProperties);
+    }
+
+    @Bean
+    public ServiceHolder serviceHolder(PhoenixServiceApi apiProxy) {
+        return new ServiceHolder(apiProxy);
     }
 
 }

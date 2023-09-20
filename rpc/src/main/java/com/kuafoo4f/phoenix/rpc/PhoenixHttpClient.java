@@ -2,6 +2,9 @@ package com.kuafoo4f.phoenix.rpc;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.kuafoo4j.phoenix.commom.core.api.*;
 import com.kuafoo4j.phoenix.commom.core.constants.ApiConstant;
 import com.kuafoo4j.phoenix.commom.core.pojo.ServiceInfo;
@@ -57,7 +60,13 @@ public class PhoenixHttpClient implements PhoenixServiceApi {
         Map<String, String> params = MapUtil.pojo2Map(req);
         String url = getUrlWithParam(REMOTE_HOST + ApiConstant.INSTANCE_URL, params);
         HttpResponse execute = HttpRequest.get(url).execute();
-        return JacksonUtils.jsonToPojo(execute.bodyBytes(),ReturnResp.class);
+        JSONObject object = JSONUtil.parseObj(execute.body());
+        JSONObject date = object.getJSONObject("date");
+        ReturnResp returnResp = object.toBean(ReturnResp.class);
+        if (date != null) {
+            returnResp.setDate(date.toBean(ServiceInfo.class));
+        }
+        return returnResp;
     }
 
     /**

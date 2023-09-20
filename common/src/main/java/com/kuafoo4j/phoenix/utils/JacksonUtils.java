@@ -1,5 +1,6 @@
 package com.kuafoo4j.phoenix.utils;
 
+import cn.hutool.core.lang.TypeReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -59,6 +60,21 @@ public class JacksonUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    /**
+     * 将json数据转换成pojo对象list
+     */
+    public static <T> List<T> jsonToList(String jsonData, Class<T> beanType) {
+        JavaType javaType = mapper.getTypeFactory().constructParametricType(List.class, beanType);
+        try {
+            List<T> list = mapper.readValue(jsonData, javaType);
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 

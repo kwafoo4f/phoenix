@@ -1,5 +1,6 @@
 package com.kuafoo4j.phoenix.commom.core.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,9 @@ import java.util.Collections;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReturnResp<T> {
+    @JsonIgnore
     private static final int SUCCESS = 200;
+    @JsonIgnore
     private static final String MES = "SUCCESS";
 
     private int code = SUCCESS;
