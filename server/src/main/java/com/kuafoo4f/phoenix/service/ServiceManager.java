@@ -30,6 +30,14 @@ public class ServiceManager {
      */
     private Map<String,Map<String, Service>> serviceMap = new ConcurrentHashMap<>();
 
+    /**
+     * 获取注册表信息
+     *
+     * @return
+     */
+    public Map getAllService() {
+        return serviceMap;
+    }
 
     public void registerInstance(RegisterReq registerReq) {
         // 创建空的Service
@@ -83,7 +91,7 @@ public class ServiceManager {
         serviceMap.get(namespaceId).put(service.getName(), service);
     }
 
-    private Service getService(String namespaceId,String serviceName) {
+    public Service getService(String namespaceId,String serviceName) {
         Map<String, Service> serviceMap = chooseMap(namespaceId);
         if (serviceMap == null) {
             return null;

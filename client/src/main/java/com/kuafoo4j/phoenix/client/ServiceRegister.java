@@ -51,12 +51,16 @@ public class ServiceRegister {
      * 服务心跳
      */
     public void beat() {
-        log.info("beat to phoenix server {} {}:{}",serviceProperties.getServiceName(),serviceProperties.getIp(),serviceProperties.getPort());
-        BeatReq beatReq = getBeatReq();
-        Instance instance = buildInstance();
-        beatReq.setInstance(instance);
-        ReturnResp returnResp = apiProxy.beat(beatReq);
-        log.info("beat to phoenix server result {}",returnResp);
+        try {
+            log.info("beat to phoenix server {} {}:{}",serviceProperties.getServiceName(),serviceProperties.getIp(),serviceProperties.getPort());
+            BeatReq beatReq = getBeatReq();
+            Instance instance = buildInstance();
+            beatReq.setInstance(instance);
+            ReturnResp returnResp = apiProxy.beat(beatReq);
+            log.info("beat to phoenix server result {}",returnResp);
+        } catch (Exception e) {
+            log.error("beat to phoenix server err",e);
+        }
     }
 
     private BeatReq getBeatReq() {
