@@ -32,15 +32,19 @@ public class ServiceRegister {
 
     public void init() {
         // 发起注册
-        log.info("register to phoenix server {} {}:{}",serviceProperties.getServiceName(),serviceProperties.getIp(),serviceProperties.getPort());
-        RegisterReq registerReq = getRegisterReq();
-        Instance instance = buildInstance();
-        registerReq.setInstance(instance);
-        ReturnResp returnResp = apiProxy.registerService(registerReq);
-        log.info("register to phoenix server result {}",returnResp);
+        try {
+            log.info("service register {} {}:{} to phoenix server",serviceProperties.getServiceName(),serviceProperties.getIp(),serviceProperties.getPort());
+            RegisterReq registerReq = getRegisterReq();
+            Instance instance = buildInstance();
+            registerReq.setInstance(instance);
+            ReturnResp returnResp = apiProxy.registerService(registerReq);
+            log.info("service register to phoenix server result {}",returnResp);
+        } catch (Exception e) {
+            log.error("register to phoenix server err",e);
+        }
 
         // 创建心跳任务
-        ClientPoolManager.INSTANCE_BEAT_POOL.scheduleWithFixedDelay(()->{},5,5, TimeUnit.SECONDS);
+        ClientPoolManager.INSTANCE_BEAT_POOL.scheduleWithFixedDelay(this::beat,5,5, TimeUnit.SECONDS);
     }
 
     /**
@@ -76,6 +80,8 @@ public class ServiceRegister {
     private Instance buildInstance() {
         Instance instance = new Instance();
         instance.setInstanceId(UUID.randomUUID().toString().replace("-",""));
+        instance.setNamespaceId(Constant.NAMESPACE_DEFAULT);
+        instance.setClusterName(Constant.GROUP_DEFAULT);
         instance.setServiceName(serviceProperties.getServiceName());
         instance.setClusterName(Constant.GROUP_DEFAULT);
         instance.setName(serviceProperties.getServiceName());
