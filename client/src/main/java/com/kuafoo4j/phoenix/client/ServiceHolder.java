@@ -1,14 +1,18 @@
 package com.kuafoo4j.phoenix.client;
 
+import com.kuafoo4j.phoenix.commom.core.api.IPhoenixServerDiscovery;
 import com.kuafoo4j.phoenix.commom.core.api.PhoenixServiceApi;
 import com.kuafoo4j.phoenix.commom.core.api.ReturnResp;
 import com.kuafoo4j.phoenix.commom.core.api.ServiceBaseReq;
 import com.kuafoo4j.phoenix.commom.core.constants.Constant;
+import com.kuafoo4j.phoenix.commom.core.pojo.Instance;
 import com.kuafoo4j.phoenix.commom.core.pojo.ServiceInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @date: 2023-09-18 11:46
  */
 @Slf4j
-public class ServiceHolder {
+public class ServiceHolder implements IPhoenixServerDiscovery {
 
     private static final Map<String, UpdateTask> serviceUpdateTaskMap = new ConcurrentHashMap<>();
 
@@ -125,6 +129,16 @@ public class ServiceHolder {
         serviceInfo.setClusters(Constant.DEFAULT);
         serviceInfo.setHosts(Collections.EMPTY_LIST);
         return serviceInfo;
+    }
+
+    @Override
+    public List<Instance> getInstanceList(String serviceName) {
+        ServiceInfo serviceInfo = getAllInstance(serviceName);
+        if (serviceInfo == null) {
+            return null;
+        }
+
+        return new ArrayList<>(serviceInfo.getHosts());
     }
 
     @Data
