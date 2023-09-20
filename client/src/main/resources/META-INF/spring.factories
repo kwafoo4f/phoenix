@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.kuafoo4j.phoenix.config.DiscoveryProperties\
+com.kuafoo4j.phoenix.config.ServiceProperties\
+com.kuafoo4j.phoenix.configration.PhoenixAutoConfiguration
