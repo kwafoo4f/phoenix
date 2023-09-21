@@ -1,0 +1,5 @@
+# common
+mvn install:install-file  -Dfile=D:\opensource\ideaworkspace\phoenix\common\target\common-1.0.1.jar  -DgroupId=org.kwafoo4f  -DartifactId=common -Dversion=1.0.1 -Dpackaging=jar
+
+# client
+mvn install:install-file  -Dfile=D:\opensource\ideaworkspace\phoenix\client\target\client-1.0.1.jar  -DgroupId=org.kwafoo4f  -DartifactId=client -Dversion=1.0.1 -Dpackaging=jar
